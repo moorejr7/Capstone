@@ -1,0 +1,26 @@
+h1, h3 {
+	font-family: Goudy Old Style,Garamond,Big Caslon,Times New Roman,serif;
+}
+
+h1 { 
+    	text-shadow: 2px 2px 2px #3d3d3d;
+    	text-align: center;
+}
+
+h3 {
+	text-align: center;
+}
+
+body {
+	background-image: url("clouds.jpg");
+	background-repeat: no-repeat;
+	background-size: 100%
+}
+
+.value {
+	color: cyan;
+}
+
+.value2 {
+	color: cyan;
+}
