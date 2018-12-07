@@ -30,6 +30,7 @@ byte mac[] = {
   0x90, 0xA2, 0xDA, 0x0F, 0xFB, 0xBC
 };
 IPAddress ip(192, 168, 137, 237);
+int distancePin = A0;
 int motorPin = A4;
 int eTapePin = A5;
 int tempPin = 2;
@@ -40,6 +41,9 @@ float volume = 0;
 float targetVolume = 4;
 float initVolume;
 float testVolume;
+float distance;
+long interval = 6000;
+long prevM = 0;
 
 // Initialize the Ethernet server library
 // with the IP address and port you want to use
@@ -61,6 +65,7 @@ void setup() {
   pinMode(led, OUTPUT);
   pinMode(blinkPin, OUTPUT);
   pinMode(tempPin,OUTPUT);
+  //pinMode(distancePin, OUTPUT);
   digitalWrite(led,LOW);
   sensors.begin();
   while (!Serial) {
@@ -192,13 +197,18 @@ void loop() {
           volume = measureVolume();
           client.print(volume);
           client.println(" mL</b></h2>");
-                    if (demo) {
-            digitalWrite(motorPin, HIGH);
-            delay(120000);
-            digitalWrite(motorPin, LOW);
-            demo = false;
+ 
+          distance = 12343.85 * pow(analogRead(distancePin),-1.15);
+          Serial.println(distance);   
+          if (distance >= 5.5 && distance <= 6.5) {
+              digitalWrite(motorPin, HIGH);
+              //delay();
+              //digitalWrite(motorPin, LOW);
+              //delay(10000);
           }
-          //delay(400);                       // wait for this much time before printing next value
+          else {
+              digitalWrite(motorPin, LOW);
+          }
           client.println("</html>");
           break;
 
